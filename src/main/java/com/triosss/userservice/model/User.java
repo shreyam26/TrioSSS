@@ -10,20 +10,19 @@ import java.util.Calendar;
 @Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id = 0;
-
     private String name;
     private String userType;
-    private LocalDate createdTime;
+    private LocalDate createdTime = LocalDate.now();
     private LocalDate modifiedTime;
     private String password;
     private String emailId;
-    @NotNull(message = "Please enter your contact number")
     private String contactNo;
-    private Calendar passwordExpiry;
+    private LocalDate passwordExpiry;
     private String address;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -55,7 +54,7 @@ public class User {
         return contactNo;
     }
 
-    public Calendar getPasswordExpiry() {
+    public LocalDate getPasswordExpiry() {
         return passwordExpiry;
     }
 
@@ -63,7 +62,7 @@ public class User {
         return address;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -95,8 +94,8 @@ public class User {
         this.contactNo = contactNo;
     }
 
-    public void setPasswordExpiry() {
-        Calendar.getInstance().add(Calendar.DATE,1);
+    public void setPasswordExpiry(LocalDate passwordExpiry) {
+        this.passwordExpiry = passwordExpiry;
     }
 
     public void setAddress(String address) {

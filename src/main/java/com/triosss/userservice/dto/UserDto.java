@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public class UserDto {
     private String name;
-    private HttpStatus status = HttpStatus.OK;
+
     private String emailId;
     private String contactNo;
 
@@ -16,13 +16,7 @@ public class UserDto {
         this.name = name;
     }
 
-    public HttpStatus getStatus() {
-        return status;
-    }
 
-    public void setStatus(HttpStatus status) {
-        this.status = status;
-    }
 
     public String getEmailId() {
         return emailId;
@@ -44,7 +38,7 @@ public class UserDto {
     public String toString() {
         return "UserDto{" +
                 "name='" + name + '\'' +
-                ", status=" + status +
+
                 ", emailId='" + emailId + '\'' +
                 ", contactNo='" + contactNo + '\'' +
                 '}';
