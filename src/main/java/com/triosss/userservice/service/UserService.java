@@ -2,6 +2,7 @@ package com.triosss.userservice.service;
 
 import com.triosss.userservice.dto.UserDto;
 import com.triosss.userservice.model.User;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 

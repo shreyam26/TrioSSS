@@ -1,10 +1,11 @@
 package com.triosss.userservice.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
 @Entity
 @Table(name = "users")
@@ -13,11 +14,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id = 0;
     private String name;
+    private String username;
     private String userType;
     private LocalDate createdTime = LocalDate.now();
     private LocalDate modifiedTime;
     private String password;
+    @NotNull(message = "email must be entered")
+    @Email(message = "please enter a valid email id")
+    @Pattern(regexp = "^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.com$",message = "enter a valid email id")
     private String emailId;
+
+    @NotNull(message = "Contact number must be entered")
+    @Pattern(regexp = "^\\d{10}", message = "enter 10- digit contact number")
     private String contactNo;
     private LocalDate passwordExpiry;
     private String address;
@@ -102,11 +110,20 @@ public class User {
         this.address = address;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", userType='" + userType + '\'' +
                 ", createdTime=" + createdTime +
                 ", modifiedTime=" + modifiedTime +

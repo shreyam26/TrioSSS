@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-@RestController
+
+
 @RequestMapping("/user")
+@RestController
 public class UserController {
 
     @Autowired
@@ -37,31 +39,34 @@ public class UserController {
 
 
     @PostMapping("/createUser")
-    private ResponseEntity<UserDto> createUser(@RequestBody User user){
+    private ResponseEntity<UserDto> createUser(@Valid @RequestBody User user){
 
         User user1 = userService.createUser(user);
         UserDto userDto = modelMapper.map(user1,UserDto.class);
-
+        if(user1 != null)
         return ResponseEntity.status(CREATED).body(userDto);
-
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(userDto);
     }
 
 
     @DeleteMapping(value = "/deleteUser")
-    private HttpStatus deleteUser(@RequestParam String contactNo){
+    private HttpStatus deleteUser(@RequestParam @Valid String contactNo){
 
 
         User user4 = userService.getUserByContactNo(contactNo);
 
         if(user4 != null)
          userService.deleteUser(user4.getContactNo());
+        else
+            return HttpStatus.NOT_FOUND;
 
         return HttpStatus.OK;
 
     }
 
     @PutMapping(value = "/updateUser")
-    private ResponseEntity<UserDto> updateUser(@RequestBody User user){
+    private ResponseEntity<UserDto> updateUser(@Valid @RequestBody User user){
        User user5 = userService.updateUser(user);
        UserDto dto = modelMapper.map(user5,UserDto.class);
        return ResponseEntity.status(HttpStatus.OK).body(dto);
